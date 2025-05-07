@@ -1,54 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🎵 Electron Music Player</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electron Music Player</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="player-container">
-    <h1>🎵 Electron Music Player</h1>
-
-    <!-- Folder Upload -->
-    <label style="display: block; margin-bottom: 0.5rem;">
-      <strong>Upload Music Folder:</strong>
-      <input type="file" id="folderInput" webkitdirectory directory multiple>
-    </label>
-
-    <!-- Individual File Upload -->
-    <label style="display: block; margin-bottom: 1rem;">
-      <strong>Or Upload Individual Files:</strong>
-      <input type="file" id="fileInput" accept=".mp3,.wav,.ogg" multiple>
-    </label>
-
-    <!-- Album Art -->
-    <img id="albumArt" src="" alt="Album Art" style="max-width: 200px; margin-bottom: 1rem; display: none;" />
-
-    <!-- Now Playing -->
-    <div id="nowPlaying">Now Playing: None</div>
-
-    <!-- Audio Controls -->
-    <div class="audio-controls">
-      <button id="prevBtn" title="Previous Track">⏮️</button>
-      <audio id="audioPlayer" controls></audio>
-      <button id="nextBtn" title="Next Track">⏭️</button>
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" title="Volume">
-      <button id="muteBtn" title="Mute/Unmute">🔊</button>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="progress-container" style="margin-top: 1rem; width: 100%; max-width: 600px; display: flex; align-items: center; gap: 0.5rem;">
-      <span id="currentTime">0:00</span>
-      <input type="range" id="seekBar" value="0" min="0" step="1" style="flex: 1;">
-      <span id="duration">0:00</span>
-    </div>
-
-    <!-- Playlist -->
-    <ul id="fileList"></ul>
+  <div class="fullscreen-toggle" id="fullscreenBtn" title="Toggle Fullscreen">
+    <i class="fas fa-expand"></i>
   </div>
+  
+  <main class="player-container">
+    <header class="header">
+      <h1><i class="fas fa-music"></i> Electron Music Player</h1>
+      <button id="themeBtn" aria-label="Toggle Theme">
+        <i class="fas fa-moon"></i>
+      </button>
+    </header>
 
-  <!-- Script should be at the end for DOM readiness -->
+    <section class="upload-section">
+      <label class="upload-label">
+        <i class="fas fa-folder-open"></i>
+        <span class="upload-text">Upload Music Folder</span>
+        <input type="file" id="folderInput" webkitdirectory directory multiple />
+      </label>
+      <span class="upload-separator">or</span>
+      <label class="upload-label">
+        <i class="fas fa-file-audio"></i>
+        <span class="upload-text">Upload Individual Files</span>
+        <input type="file" id="fileInput" accept=".mp3,.wav,.ogg,.m4a,.flac" multiple />
+      </label>
+    </section>
+
+    <div id="currentFolder" class="current-folder">
+      <i class="fas fa-folder"></i> <span class="folder-path">No folder selected</span>
+    </div>
+
+    <section class="now-playing-section">
+      <div class="album-art-container">
+        <img id="albumArt" src="" alt="Album Art" class="album-art" />
+        <div class="album-art-placeholder">
+          <i class="fas fa-music"></i>
+        </div>
+      </div>
+      <div id="nowPlaying" class="now-playing-text">
+        <i class="fas fa-play"></i> Now Playing: None
+      </div>
+    </section>
+
+    <section class="audio-controls">
+      <button id="prevBtn" title="Previous Track (Ctrl+Left)">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button id="playPauseBtn" title="Play/Pause (Space)">
+        <i class="fas fa-play"></i>
+      </button>
+      <button id="nextBtn" title="Next Track (Ctrl+Right)">
+        <i class="fas fa-step-forward"></i>
+      </button>
+      <div class="volume-control">
+        <button id="muteBtn" title="Mute/Unmute (Ctrl+M)">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" title="Volume" />
+      </div>
+    </section>
+
+    <section class="progress-container">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="seekBar" value="0" min="0" step="1" class="seek-bar" />
+      <span id="duration">0:00</span>
+    </section>
+
+    <section class="playlist-header">
+      <h2><i class="fas fa-list"></i> Playlist</h2>
+      <div class="playlist-actions">
+        <button id="shuffleBtn" title="Shuffle (Ctrl+S)">
+          <i class="fas fa-random"></i>
+        </button>
+        <button id="repeatBtn" title="Repeat (Ctrl+R)">
+          <i class="fas fa-redo"></i>
+        </button>
+        <button id="clearBtn" title="Clear Playlist (Ctrl+D)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </section>
+
+    <ul id="fileList" role="list"></ul>
+
+    <footer class="shortcut-hint">
+      <strong><i class="fas fa-keyboard"></i> Keyboard Shortcuts:</strong> 
+      Space=Play/Pause, Ctrl+←/→=Previous/Next, Ctrl+↑/↓=Volume, Ctrl+F=Fullscreen
+    </footer>
+  </main>
+
   <script src="renderer.js"></script>
 </body>
 </html>
