@@ -1,40 +1,52 @@
 # 🎧 Electron Music Player
 
-This project is a cross-platform desktop music player application developed using **Electron**, meeting the requirements of the Cross Platform and Interactive Application Development modules at **CCT College Dublin**.
+![App Screenshot](screenshot.png) <!-- Add your screenshot here -->
 
----
+A feature-rich, cross-platform desktop music player built with Electron. Developed for Cross Platform and Interactive Application Development modules at CCT College Dublin.
 
-## 📌 Features
+## ✨ Features
 
-- 🎵 **Folder & File Selection**
-  - Upload entire music folders or individual audio files (.mp3, .wav, .ogg, etc.)
-- ▶️ **Audio Playback**
-  - Play, pause, skip, previous
-  - Seekbar and track timing
-- 🔊 **Volume Controls**
-  - Adjustable volume with mute toggle
-- 📃 **Dynamic Playlist**
-  - Auto-generated playlist with active highlight
-- 🌓 **Themes & UX**
-  - Light/Dark theme support
-  - Responsive and accessible design
--  Keyboard & System Shortcuts
-  - Full media key support (Play/Pause, Next, Prev, Volume)
-- 🪟 Electron Shell Integration
-  - Desktop window with tray and global shortcut handling
+### 🎵 Core Functionality
+- **Audio Formats**: MP3, WAV, OGG, M4A, FLAC support
+- **Playback Controls**: Play/pause, next/previous track, seek bar
+- **Volume Management**: Slider control with mute toggle
+- **Playlist System**: Dynamic track listing with highlighting
 
----
+### 🖥️ Desktop Integration
+- **System Tray** with playback controls
+- **Media Key Support** (play/pause, next, previous)
+- **Taskbar Progress** indicator
+- **Thumbnail Toolbar** (Windows)
 
-## 🛠️ How to Run
+### 🎨 User Experience
+- **Light/Dark Themes** with auto-detection
+- **Responsive Design** for all screen sizes
+- **Keyboard Shortcuts** for all functions
+- **Now Playing Notifications**
 
-### 📦 Requirements
+### 🔄 Playlist Management
+- **Shuffle** mode with visual indicator
+- **Repeat** track functionality
+- **Clear Playlist** option
+- **Folder/File** upload options
 
-- Node.js (v16+)
-- Git (optional for cloning repo)
+## 🚀 Installation
 
-### 📥 Setup
+### Prerequisites
+- Node.js ltsv16+
+- npm init -y (comes with Node.js)
+- npm i electron --save-dev
+- npm run electron
+- Git (optional)
 
+### Quick Start
 ```bash
+# Clone repository
 git clone https://github.com/Bat6man9/musicplayer-ydtl.git
 cd musicplayer-ydtl
+
+# Install dependencies
 npm install
+
+# Run application
+npm start

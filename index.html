@@ -1,102 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Electron Music Player</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Basic HTML metadata -->
+  <meta charset="UTF-8" /> <!-- Character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Responsive viewport settings -->
+  <title>Electron Music Player</title> <!-- Page title -->
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="styles.css" /> <!-- Main application styles -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
+  <!-- Fullscreen toggle button - fixed position in top right -->
   <div class="fullscreen-toggle" id="fullscreenBtn" title="Toggle Fullscreen">
-    <i class="fas fa-expand"></i>
+    <i class="fas fa-expand"></i> <!-- Expand icon -->
   </div>
   
+  <!-- Main player container - holds all application content -->
   <main class="player-container">
+    <!-- Application header with title and theme toggle -->
     <header class="header">
-      <h1><i class="fas fa-music"></i> Electron Music Player</h1>
-      <button id="themeBtn" aria-label="Toggle Theme">
-        <i class="fas fa-moon"></i>
+      <h1><i class="fas fa-music"></i> Electron Music Player</h1> <!-- Main title with music icon -->
+      <button id="themeBtn" aria-label="Toggle Theme"> <!-- Theme toggle button -->
+        <i class="fas fa-moon"></i> <!-- Moon icon (dark mode indicator) -->
       </button>
     </header>
 
+    <!-- File upload section with two options -->
     <section class="upload-section">
+      <!-- Folder upload option -->
       <label class="upload-label">
-        <i class="fas fa-folder-open"></i>
-        <span class="upload-text">Upload Music Folder</span>
+        <i class="fas fa-folder-open"></i> <!-- Folder icon -->
+        <span class="upload-text">Upload Music Folder</span> <!-- Button text -->
+        <!-- Hidden file input for directory selection -->
         <input type="file" id="folderInput" webkitdirectory directory multiple />
       </label>
-      <span class="upload-separator">or</span>
+      
+      <span class="upload-separator">or</span> <!-- Separator text -->
+      
+      <!-- Individual file upload option -->
       <label class="upload-label">
-        <i class="fas fa-file-audio"></i>
-        <span class="upload-text">Upload Individual Files</span>
+        <i class="fas fa-file-audio"></i> <!-- Audio file icon -->
+        <span class="upload-text">Upload Individual Files</span> <!-- Button text -->
+        <!-- Hidden file input for audio files -->
         <input type="file" id="fileInput" accept=".mp3,.wav,.ogg,.m4a,.flac" multiple />
       </label>
     </section>
 
+    <!-- Current folder display -->
     <div id="currentFolder" class="current-folder">
-      <i class="fas fa-folder"></i> <span class="folder-path">No folder selected</span>
+      <i class="fas fa-folder"></i> <span class="folder-path">No folder selected</span> <!-- Default state -->
     </div>
 
+    <!-- Now playing section with album art and track info -->
     <section class="now-playing-section">
       <div class="album-art-container">
-        <img id="albumArt" src="" alt="Album Art" class="album-art" />
-        <div class="album-art-placeholder">
-          <i class="fas fa-music"></i>
+        <img id="albumArt" src="" alt="Album Art" class="album-art" /> <!-- Dynamic album art -->
+        <div class="album-art-placeholder"> <!-- Fallback when no art available -->
+          <i class="fas fa-music"></i> <!-- Music note placeholder -->
         </div>
       </div>
-      <div id="nowPlaying" class="now-playing-text">
-        <i class="fas fa-play"></i> Now Playing: None
+      <div id="nowPlaying" class="now-playing-text"> <!-- Current track display -->
+        <i class="fas fa-play"></i> Now Playing: None <!-- Default state -->
       </div>
     </section>
 
+    <!-- Audio playback controls -->
     <section class="audio-controls">
+      <!-- Previous track button -->
       <button id="prevBtn" title="Previous Track (Ctrl+Left)">
-        <i class="fas fa-step-backward"></i>
+        <i class="fas fa-step-backward"></i> <!-- Step backward icon -->
       </button>
+      
+      <!-- Play/pause button (main control) -->
       <button id="playPauseBtn" title="Play/Pause (Space)">
-        <i class="fas fa-play"></i>
+        <i class="fas fa-play"></i> <!-- Play icon (default state) -->
       </button>
+      
+      <!-- Next track button -->
       <button id="nextBtn" title="Next Track (Ctrl+Right)">
-        <i class="fas fa-step-forward"></i>
+        <i class="fas fa-step-forward"></i> <!-- Step forward icon -->
       </button>
+      
+      <!-- Volume controls -->
       <div class="volume-control">
+        <!-- Mute toggle button -->
         <button id="muteBtn" title="Mute/Unmute (Ctrl+M)">
-          <i class="fas fa-volume-up"></i>
+          <i class="fas fa-volume-up"></i> <!-- Volume icon -->
         </button>
+        <!-- Volume slider -->
         <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" title="Volume" />
       </div>
     </section>
 
+    <!-- Progress bar section -->
     <section class="progress-container">
-      <span id="currentTime">0:00</span>
-      <input type="range" id="seekBar" value="0" min="0" step="1" class="seek-bar" />
-      <span id="duration">0:00</span>
+      <span id="currentTime">0:00</span> <!-- Current playback time -->
+      <input type="range" id="seekBar" value="0" min="0" step="1" class="seek-bar" /> <!-- Seek bar -->
+      <span id="duration">0:00</span> <!-- Track duration -->
     </section>
 
+    <!-- Playlist section header -->
     <section class="playlist-header">
-      <h2><i class="fas fa-list"></i> Playlist</h2>
+      <h2><i class="fas fa-list"></i> Playlist</h2> <!-- Section title -->
+      
+      <!-- Playlist action buttons -->
       <div class="playlist-actions">
+        <!-- Shuffle button -->
         <button id="shuffleBtn" title="Shuffle (Ctrl+S)">
-          <i class="fas fa-random"></i>
+          <i class="fas fa-random"></i> <!-- Random icon -->
         </button>
+        
+        <!-- Repeat button -->
         <button id="repeatBtn" title="Repeat (Ctrl+R)">
-          <i class="fas fa-redo"></i>
+          <i class="fas fa-redo"></i> <!-- Redo/loop icon -->
         </button>
+        
+        <!-- Clear playlist button -->
         <button id="clearBtn" title="Clear Playlist (Ctrl+D)">
-          <i class="fas fa-trash"></i>
+          <i class="fas fa-trash"></i> <!-- Trash icon -->
         </button>
       </div>
     </section>
 
-    <ul id="fileList" role="list"></ul>
+    <!-- Playlist items container -->
+    <ul id="fileList" role="list"></ul> <!-- Dynamically populated with tracks -->
 
+    <!-- Footer with keyboard shortcuts -->
     <footer class="shortcut-hint">
       <strong><i class="fas fa-keyboard"></i> Keyboard Shortcuts:</strong> 
       Space=Play/Pause, Ctrl+←/→=Previous/Next, Ctrl+↑/↓=Volume, Ctrl+F=Fullscreen
     </footer>
   </main>
 
+  <!-- Main application script -->
   <script src="renderer.js"></script>
 </body>
 </html>
