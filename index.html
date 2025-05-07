@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎵 Electron Music Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="player-container">
+    <h1>🎵 Electron Music Player</h1>
+
+    <!-- Folder Upload -->
+    <label style="display: block; margin-bottom: 0.5rem;">
+      <strong>Upload Music Folder:</strong>
+      <input type="file" id="folderInput" webkitdirectory directory multiple>
+    </label>
+
+    <!-- Individual File Upload -->
+    <label style="display: block; margin-bottom: 1rem;">
+      <strong>Or Upload Individual Files:</strong>
+      <input type="file" id="fileInput" accept=".mp3,.wav,.ogg" multiple>
+    </label>
+
+    <!-- Album Art -->
+    <img id="albumArt" src="" alt="Album Art" style="max-width: 200px; margin-bottom: 1rem; display: none;" />
+
+    <!-- Now Playing -->
+    <div id="nowPlaying">Now Playing: None</div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+      <button id="prevBtn" title="Previous Track">⏮️</button>
+      <audio id="audioPlayer" controls></audio>
+      <button id="nextBtn" title="Next Track">⏭️</button>
+      <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" title="Volume">
+      <button id="muteBtn" title="Mute/Unmute">🔊</button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" style="margin-top: 1rem; width: 100%; max-width: 600px; display: flex; align-items: center; gap: 0.5rem;">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="seekBar" value="0" min="0" step="1" style="flex: 1;">
+      <span id="duration">0:00</span>
+    </div>
+
+    <!-- Playlist -->
+    <ul id="fileList"></ul>
+  </div>
+
+  <!-- Script should be at the end for DOM readiness -->
+  <script src="renderer.js"></script>
+</body>
+</html>
